@@ -21,6 +21,6 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-        void drawRect(int x, int y, int w, int h);
+        void drawParallelogram(int x, int y, int w, int h);
 		
 };
