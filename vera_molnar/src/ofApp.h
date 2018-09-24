@@ -22,5 +22,5 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
         void drawParallelogram(int x, int y, int w, int h);
-		
+        void drawGridRow(int length);
 };
