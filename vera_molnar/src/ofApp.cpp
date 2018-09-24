@@ -25,29 +25,55 @@ void ofApp::draw(){
         int startOfNextRow = i * (rectWidth + spaceBetweenRect);
         ofPushMatrix();
             ofTranslate(0, startOfNextRow);
-            drawGridRow(gridRowCount);
+            drawGridRow();
         ofPopMatrix();
     }
 }
 
-void ofApp::drawGridRow(int gridRowCount){
+void ofApp::drawGridRow(){
     int rectWidth = 70;
     int spaceBetweenRect = 10;
+//    int maxParallelogramCount = 10;
 
-    for (int i = 0; i < gridRowCount; i++) {
+    int numberOfTimesToDrawParallelogram = 1;
+    for (int i = 0; i < 3; i++) {
         ofPushMatrix();
         ofTranslate(i * (rectWidth + spaceBetweenRect), 0);
         // draw multiple entities on top of each other adding another one on top linearly
         // as the row is drawn
-        for (int j = 0; j < i; j++){
-            drawParallelogram(0, 0, rectWidth, rectWidth);
+        for (int j = 0; j < numberOfTimesToDrawParallelogram; j++){
+            drawParallelogram(0, 0, rectWidth, rectWidth, 8);
         }
+        numberOfTimesToDrawParallelogram = numberOfTimesToDrawParallelogram + 1;
+        ofPopMatrix();
+    }
+    
+    numberOfTimesToDrawParallelogram = 5;
+    int deviation = 8;
+    for (int i = 3; i < 6; i++) {
+        ofPushMatrix();
+        ofTranslate(i * (rectWidth + spaceBetweenRect), 0);
+        for (int j = 0; j < numberOfTimesToDrawParallelogram; j++){
+            drawParallelogram(0, 0, rectWidth, rectWidth, deviation);
+        }
+        numberOfTimesToDrawParallelogram = numberOfTimesToDrawParallelogram * 2;
+        deviation = deviation + 2;
+        ofPopMatrix();
+    }
+    
+    numberOfTimesToDrawParallelogram = 3;
+    for (int i = 6; i <= 9; i++) {
+        ofPushMatrix();
+        ofTranslate(i * (rectWidth + spaceBetweenRect), 0);
+        for (int j = numberOfTimesToDrawParallelogram; j > 0; j--){
+            drawParallelogram(0, 0, rectWidth, rectWidth, 8);
+        }
+        numberOfTimesToDrawParallelogram = numberOfTimesToDrawParallelogram -1;
         ofPopMatrix();
     }
 }
 
-void ofApp::drawParallelogram(int x, int y, int w, int h){
-    int deviation = 8;
+void ofApp::drawParallelogram(int x, int y, int w, int h, int deviation){
     ofPolyline poly;
     
     x = ofRandom(x, x + deviation);
