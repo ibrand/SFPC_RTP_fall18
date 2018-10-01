@@ -1,6 +1,7 @@
 #include "ofApp.h"
 
 ofPolyline poly;
+int rotation = 45;
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(0, 0, 0);
@@ -8,35 +9,29 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    rotation++;
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofTranslate(ofGetWidth()/3, ofGetHeight()/3);
-    for (int i = 0; i < 50; i++) {
-    float offset = i * sin(ofGetElapsedTimef()*0.1)*0.1;
-    
-        float sinVal = sin( (ofGetElapsedTimef()) + offset) * 20;
-//        ofPushMatrix();
-            ofTranslate(sinVal, sinVal);
-        ofRotateDeg(45);
-            ofSetColor(255);
-            ofDrawRectangle(sinVal, sinVal, 100, 100);
-            ofSetColor(0, 0, 0);
-            ofDrawRectangle(sinVal + 2, sinVal + 2, 95, 95);
-//        ofPopMatrix();
-    
-    }
-}
+    ofPushMatrix();
+    ofTranslate(450, 250);
+//    ofRotate(rotation *2);
+    for (int i = 0; i < 10; i++) {
+        ofSetColor(255, i*2, 0);
+        ofPushMatrix();
+            ofScale(i * 0.2, i * 0.2);
+            ofTranslate(5, 5);
 
-//void ofApp::drawHex(){
-//    poly.addVertex(100, 100);
-//    poly.addVertex(150, 50);
-//    poly.addVertex(200, 100);
-//    poly.addVertex(200, 200);
-//    poly.addVertex(150, 250);
-//    poly.addVertex(100, 200);
-//    poly.close();
-//    poly.draw();
-//}
+            ofTranslate((100 * i/2) * cos(ofGetElapsedTimef()) + ofGetElapsedTimef() * 2, (100 * i/2) * sin(ofGetElapsedTimef()) + ofGetElapsedTimef() * 2);
+            ofSetColor(255, 0 , 0);
+            poly.addVertex(0, 0);
+            poly.addVertex(50, 0);
+            poly.addVertex(25, 90);
+        
+            poly.close();
+            poly.draw();
+        ofPopMatrix();
+    }
+    ofPopMatrix();
+}
